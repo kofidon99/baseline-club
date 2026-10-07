@@ -1,5 +1,10 @@
+import {createTabletop,createSnake,isTabletop} from './tabletop.js?v=20261007';
+import {createExpansion,isExpansion} from './expansion.js?v=20261007';
 export const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-export function createGame(id,random=Math.random){
+export function createGame(id,random=Math.random,options={}){
+ if(isTabletop(id))return createTabletop(id,random,options);
+ if(id==='snake')return createSnake(random);
+ if(isExpansion(id))return createExpansion(id,random);
  const s={id,t:0,score:0,lives:3,done:false,won:false,message:'',flash:0,x:200,target:200,held:false,left:false,right:false,objects:[],spawn:0,distance:0,cooldown:0,round:0,enemy:0,shots:10,aim:200,ball:null};
  function ball(){s.ball={x:200,y:450,vx:(random()-.5)*160,vy:-260};}
  function servePin(){s.ball={x:350,y:510,vx:-80-random()*100,vy:-650};s.message='';}

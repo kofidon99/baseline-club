@@ -1,5 +1,9 @@
+import {renderTabletop} from './tabletop-render.js?v=20261007';
+import {renderExpansion} from './expansion-render.js?v=20261007';
 const colors={pinball:'#a580de',soccer:'#7dbb88',football:'#d79763',tennis:'#c8cf75',rugby:'#70b9b1',moto:'#9291cf',formula:'#de856d'};
 export function render(ctx,s,{preview=false}={}){
+ if(['chess','checkers','reversi','snake'].includes(s.id)){renderTabletop(ctx,s);return;}
+ if(['brick','pong','goalie','airhockey','frog','lanes','defender','river','whack','bubbles','rhythm','targets','memory','connect4','tictac','merge','mines','maze','stack','simon','crowd'].includes(s.id)){renderExpansion(ctx,s);return;}
  const c=ctx;const W=400,H=600;c.save();c.clearRect(0,0,W,H);c.fillStyle='#142630';c.fillRect(0,0,W,H);
  const rect=(x,y,w,h,col)=>{c.fillStyle=col;c.fillRect(x,y,w,h);};
  const line=(x,y,X,Y,col='#ffffff75',w=2)=>{c.strokeStyle=col;c.lineWidth=w;c.beginPath();c.moveTo(x,y);c.lineTo(X,Y);c.stroke();};
